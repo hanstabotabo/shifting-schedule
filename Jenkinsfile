@@ -19,14 +19,14 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker pull hanstabotabo/shift_sched'
+                    sh 'docker build . -t shift_sched'
                 }
             }
         }
         stage('Deploy') {
             steps {
                 script {
-                    sh 'kubectl run mini-proj_pod --image hanstabotabo/shift_sched'
+                    sh 'kubectl run mini-proj_pod --image shift_sched'
                 }
             }
         }
