@@ -5,6 +5,7 @@ metadata:
 data:
   shift_sched.sh: |
     #!/bin/sh
+    chmod +x /app/shift_sched.sh
     echo "Starting the shift scheduling script..."
 
     list="schedule.txt"
