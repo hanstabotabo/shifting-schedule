@@ -19,6 +19,16 @@ pipeline {
                 '''
             }
         }*/
+        stage('Run/Clean Registry') {
+            steps {
+                if (sh(script: 'docker ps -q -f name=registry', returnStdout: true).trim()) {
+                    sh 'docker stop registry'
+                    sh 'docker rm registry'
+                } else {
+                    docker run -d -p 5000:5000 --name registry registry:2
+                }
+            }
+        }
         stage('Build') {
             steps {
                 //withCredentials([usernamePassword(credentialsId: 'docker-host-ssh-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -29,7 +39,6 @@ pipeline {
                 '''*/
                 sh '''
                 docker build . -t mini-proj:latest
-                docker run -d -p 5000:5000 --name registry registry:2
                 docker tag mini-proj:latest localhost:5000/mini-proj:latest
                 docker push localhost:5000/mini-proj:latest
                 '''
