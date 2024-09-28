@@ -1,13 +1,17 @@
 pipeline {
-    agent {
-        label "mini-proj"
-    }
+    agent any
  
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
                 script {
                     sh 'git clone https://github.com/hanstabotabo/shifting-schedule.git'
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
                     sh 'docker pull hanstabotabo/shift_sched"
                 }
             }
