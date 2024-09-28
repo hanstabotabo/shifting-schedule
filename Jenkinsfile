@@ -25,7 +25,8 @@ pipeline {
                 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                 docker pull docker.io/hanstabotabo/mini-proj
                 '''*/
-                docker.withServer('tcp://docker-host:2376', 'docker-credentials-id') {
+                script {
+                    docker.withServer('tcp://docker-host:2376', 'docker-credentials-id') {
                     docker.withRegistry('http://localhost:5000', '') {
                         sh '''
                         docker build . -t mini-proj:latest
@@ -35,6 +36,7 @@ pipeline {
                         '''
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
                 //}
+                    }
                     }
                 }
             }
