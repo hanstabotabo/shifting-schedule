@@ -12,6 +12,7 @@ pipeline {
                         }
                     } else {
                         git 'https://github.com/hanstabotabo/shifting-schedule.git'
+                    }
                 }
             }
         }
