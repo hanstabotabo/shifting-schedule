@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: shift-sched-container
-        image: mini-proj
+        image: docker.io/library/mini-proj
         ports:
         - containerPort: 80
