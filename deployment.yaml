@@ -22,11 +22,11 @@ spec:
         stdin: true
         tty: true
         volumeMounts:
-          - name: mini-proj-volume
+          - name: mini-proj-configmap
             mountPath: /app
         ports:
           - containerPort: 80
       volumes:
-        - name: mini-proj-volume
+        - name: mini-proj-configmap
           configMap:
-          name: mini-proj-configmap
+            name: mini-proj-configmap
