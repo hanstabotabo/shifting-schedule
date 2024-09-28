@@ -4,9 +4,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build . -t mini-proj:latest'
                 sh '''
-                docker run -d -p 5000:5000 --name registry registry:2
+                docker build . -t mini-proj:latest
+                if [ "$(docker ps -q -f name=registry)" ]; then
+                    docker stop registry
+                    docker rm registry
+                    docker run -d -p 5000:5000 --name registry registry:2
+                else
+                    docker run -d -p 5000:5000 --name registry registry:2
+                fi
                 docker tag mini-proj:latest localhost:5000/mini-proj:latest
                 docker push localhost:5000/mini-proj:latest
                 '''
