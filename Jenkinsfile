@@ -19,14 +19,15 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker build . -t shift_sched'
+                    sh 'docker login docker.io -u hanstabotabo -p 301315BebuGanda15!'
+                    sh 'docker pull docker.io/hanstabotabo/shift_sched'
                 }
             }
         }
         stage('Deploy') {
             steps {
                 script {
-                    sh 'kubectl run mini-proj_pod --image shift_sched'
+                    sh 'kubectl apply -f deployment.yaml'
                 }
             }
         }
