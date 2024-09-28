@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'docker'
-    }
+    agent any
     
     stages {
         /*stage('Run/Clean Registry') {
@@ -23,12 +21,8 @@ pipeline {
             steps {
                 //withCredentials([usernamePassword(credentialsId: 'docker-host-ssh-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                 //sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                //sh '''
-                //echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                //'''*/
+                //echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
                 sh '''
-                # echo $DOCKER_PASSWORD | docker login $DOCKER_USERNAME --password-stdin
-                echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
                 docker build . -t mini-proj:latest
                 if [ "$(docker ps -q -f name=registry)" ]; then
                     docker stop registry
@@ -46,7 +40,7 @@ pipeline {
             steps {
                 script {
                     withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
-                        sh 'kubectl apply -f service-definition.yaml'
+                        //sh 'kubectl apply -f service-definition.yaml'
                         sh 'kubectl apply -f deployment.yaml'
                     }
                 }
