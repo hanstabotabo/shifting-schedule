@@ -8,6 +8,7 @@ pipeline {
             steps {
                 script {
                     if (sh(script: 'docker ps -q -f name=registry', returnStdout: true).trim()) {
+                        echo 'Stopping and removing existing registry...'
                         sh '''
                         docker stop registry
                         docker rm registry
@@ -27,17 +28,22 @@ pipeline {
                 //'''*/
                 sh '''
                 # echo $DOCKER_PASSWORD | docker login $DOCKER_USERNAME --password-stdin
+                echo 'Building Docker image...'
                 docker build . -t mini-proj:latest
                 docker tag mini-proj:latest localhost:5000/mini-proj:latest
+                echo 'Pushing image to local registry...'
                 docker push localhost:5000/mini-proj:latest
                 '''
             }
         }
         stage('Deploy') {
             steps {
+                script {
                     withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
-                    sh 'kubectl apply -f deployment.yaml'
+                        echo 'Applying Kubernetes deployment...'
+                        sh 'kubectl apply -f deployment.yaml'
                     }
+                }
             }
         }
     }
