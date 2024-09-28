@@ -24,8 +24,13 @@ pipeline {
                 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                 docker pull docker.io/hanstabotabo/mini-proj
                 '''*/
-                //sh 'docker build . -t mini-proj'
-                sh 'docker pull docker.io/hanstabotabo/mini-proj'
+                sh 'docker build . -t mini-proj'
+                sh '''
+                docker run -d -p 5000:5000 --name registry registry:2'
+                docker tag mini-proj:latest localhost:5000/mini-proj:latest'
+                docker push localhost:5000/mini-proj:latest
+                '''
+                //sh 'docker pull docker.io/hanstabotabo/mini-proj'
                 //}
             }
         }
