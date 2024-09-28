@@ -3,6 +3,11 @@ pipeline {
         label 'docker'
     }
 
+    parameters {
+        string(name: 'DOCKER_USERNAME', defaultValue: '', description: 'Docker Hub Username')
+        password(name: 'DOCKER_PASSWORD', defaultValue: '', description: 'Docker Hub Password')
+    }
+
     stages {
         stage('Run/Clean Registry') {
             steps {
@@ -26,6 +31,7 @@ pipeline {
                 //echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                 //'''*/
                 sh '''
+                echo $DOCKER_PASSWORD | docker login $DOCKER_USERNAME --password-stdin
                 docker build . -t mini-proj:latest
                 docker tag mini-proj:latest localhost:5000/mini-proj:latest
                 docker push localhost:5000/mini-proj:latest
