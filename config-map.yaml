@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: my-script-configmap
+  name: mini-proj-configmap
 data:
   shift_sched.sh: |
     #!/bin/sh
