@@ -24,8 +24,8 @@ pipeline {
                 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                 docker pull docker.io/hanstabotabo/mini-proj
                 '''*/
-                sh 'docker build . -t mini-proj'
-                //sh 'docker pull docker.io/hanstabotabo/mini-proj'
+                //sh 'docker build . -t mini-proj'
+                sh 'docker pull docker.io/hanstabotabo/mini-proj'
                 //}
             }
         }
