@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: shift-sched-container
-        image: localhost:5000/mini-proj:latest
+        image: docker-host:5000/mini-proj:latest
         ports:
         - containerPort: 80
