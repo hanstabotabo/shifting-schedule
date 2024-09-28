@@ -6,13 +6,15 @@ pipeline {
     stages {
         stage('Run/Clean Registry') {
             steps {
-                if (sh(script: 'docker ps -q -f name=registry', returnStdout: true).trim()) {
-                    sh '''
-                    docker stop registry
-                    docker rm registry
-                    '''
-                } else {
-                    sh 'docker run -d -p 5000:5000 --name registry registry:2'
+                script {
+                    if (sh(script: 'docker ps -q -f name=registry', returnStdout: true).trim()) {
+                        sh '''
+                        docker stop registry
+                        docker rm registry
+                        '''
+                    } else {
+                        sh 'docker run -d -p 5000:5000 --name registry registry:2'
+                    }
                 }
             }
         }
