@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker'
+    }
 
     stages {
         /*stage('Checkout') {
@@ -25,9 +27,6 @@ pipeline {
                 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                 docker pull docker.io/hanstabotabo/mini-proj
                 '''*/
-                script {
-                    docker.withServer('tcp://docker-host:2376', 'docker-credentials-id') {
-                    docker.withRegistry('http://localhost:5000', '') {
                         sh '''
                         docker build . -t mini-proj:latest
                         docker run -d -p 5000:5000 --name registry registry:2
@@ -36,8 +35,6 @@ pipeline {
                         '''
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
                 //}
-                    }
-                    }
                 }
             }
         }
