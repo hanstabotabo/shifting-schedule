@@ -26,8 +26,8 @@ pipeline {
                 '''*/
                 sh 'docker build . -t mini-proj:latest'
                 sh '''
-                docker run -d -p 5000:5000 --name registry registry:2'
-                docker tag mini-proj:latest localhost:5000/mini-proj:latest'
+                docker run -d -p 5000:5000 --name registry registry:2
+                docker tag mini-proj:latest localhost:5000/mini-proj:latest
                 docker push localhost:5000/mini-proj:latest
                 '''
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
