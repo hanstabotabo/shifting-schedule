@@ -1,17 +1,17 @@
-# CentOS Official Docker Image 
+# Use an official CentOS image as the base
 FROM centos:latest
-
-# Install bash and any other dependencies (if required)
-RUN yum update -y && yum install bash -y
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the bash script and any other files needed into the container
+# Copy the bash script and other necessary files into the container
 COPY . .
 
-# Make the bash script executable
+# Make sure the bash script is executable
 RUN chmod +x shift_sched.sh
 
-# Define the entrypoint to run the bash script
+# Install bash (already present in CentOS) and any other necessary dependencies
+RUN yum update -y && yum install -y bash
+
+# Define the command to run your bash script
 ENTRYPOINT ["./shift_sched.sh"]
