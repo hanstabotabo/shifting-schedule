@@ -23,7 +23,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                 sh '''
                 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                docker pull docker.io/hanstabotabo/mini-proj
+                sudo docker pull docker.io/hanstabotabo/mini-proj
                 '''
                 }
             }
