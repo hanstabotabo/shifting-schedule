@@ -27,7 +27,7 @@ pipeline {
                 '''*/
                 sh 'docker build . -t mini-proj'
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
-                }
+                //}
             }
         }
         stage('Deploy') {
