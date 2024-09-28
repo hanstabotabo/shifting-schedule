@@ -28,9 +28,9 @@ pipeline {
                 sh '''
                 # echo $DOCKER_PASSWORD | docker login $DOCKER_USERNAME --password-stdin
                 docker build . -t mini-proj:latest
-                docker tag mini-proj:latest localhost:5000/mini-proj:latest
+                docker tag mini-proj:latest docker-host:5000/mini-proj:latest
                 echo 'Pushing image to local registry...'
-                docker push localhost:5000/mini-proj:latest
+                docker push docker-host:5000/mini-proj:latest
                 '''
             }
         }
