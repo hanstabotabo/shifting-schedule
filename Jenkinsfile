@@ -7,15 +7,15 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker build . -t hanstabotabo/mini-proj'
-                    sh 'docker push hanstabotabo/mini-proj'
+                    sh 'git clone https://github.com/hanstabotabo/shifting-schedule.git'
+                    sh 'docker pull hanstabotabo/shift_sched"
                 }
             }
         }
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker run -d -p 8080:8080 hanstabotabo/mini-proj'
+                    sh 'kubectl run mini-proj_pod --image hanstabotabo/shift_sched'
                 }
             }
         }
