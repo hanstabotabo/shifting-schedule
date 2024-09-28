@@ -5,13 +5,10 @@ FROM centos:latest
 WORKDIR /app
 
 # Copy the bash script and other necessary files into the container
-COPY . .
+COPY shift_sched.sh /app/shift_sched.sh
 
 # Make sure the bash script is executable
-RUN chmod +x shift_sched.sh
-
-# Install bash (already present in CentOS) and any other necessary dependencies
-RUN yum update -y && yum clean all && yum install -y bash
+RUN chmod +x /app/shift_sched.sh
 
 # Define the command to run your bash script
 ENTRYPOINT ["./shift_sched.sh"]
