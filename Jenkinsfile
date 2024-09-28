@@ -35,6 +35,7 @@ pipeline {
                         '''
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
                 //}
+                    }
                 }
             }
         }
