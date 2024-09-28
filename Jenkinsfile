@@ -2,7 +2,7 @@ pipeline {
     agent any
  
     stages {
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 //git branch: 'main', credentialsId: 'github', url: 'https://github.com/hanstabotabo/shifting-schedule.git'
                 sh '''
@@ -16,7 +16,7 @@ pipeline {
                 }
                 '''
             }
-        }
+        }*/
         stage('Build') {
             steps {
                 /*withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
