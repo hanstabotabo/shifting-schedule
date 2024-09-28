@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github', url: 'https://github.com/hanstabotabo/shifting-schedule.git'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/hanstabotabo/shifting-schedule.git'
                 sh '''
                 if (fileExists('shifting-schedule')) {
                     dir('shifting-schedule') {
