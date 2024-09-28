@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker pull hanstabotabo/shift_sched"
+                    sh 'docker pull hanstabotabo/shift_sched'
                 }
             }
         }
