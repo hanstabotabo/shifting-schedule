@@ -19,7 +19,7 @@ pipeline {
         }*/
         stage('Build') {
             steps {
-                /*withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-host-ssh-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                 sh '''
                 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                 docker pull docker.io/hanstabotabo/mini-proj
@@ -31,7 +31,7 @@ pipeline {
                 docker push localhost:5000/mini-proj:latest
                 '''
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
-                //}
+                }
             }
         }
         stage('Deploy') {
