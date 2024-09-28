@@ -28,6 +28,7 @@ pipeline {
                 //'''*/
                 sh '''
                 # echo $DOCKER_PASSWORD | docker login $DOCKER_USERNAME --password-stdin
+                echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
                 docker build . -t mini-proj:latest
                 if [ "$(docker ps -q -f name=registry)" ]; then
                     docker stop registry
