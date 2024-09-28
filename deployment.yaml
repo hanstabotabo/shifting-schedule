@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mini-proj-deployment
+  name: mini-proj-app
   labels:
-    app: mini-proj-deployment
+    app: mini-proj-app
 spec:
   replicas: 3
   selector:
@@ -15,7 +15,7 @@ spec:
         app: mini-proj-app
     spec:
       containers:
-      - name: mini-proj-app
+      - name: shift-sched-container
         image: hanstabotabo/mini-proj:latest
         ports:
         - containerPort: 80
