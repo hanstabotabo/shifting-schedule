@@ -32,6 +32,7 @@ pipeline {
                 if [ "$(docker ps -q -f name=registry)" ]; then
                     docker stop registry
                     docker rm registry
+                    docker run -d -p 5000:5000 --name registry registry:2
                 else
                     docker run -d -p 5000:5000 --name registry registry:2
                 fi
