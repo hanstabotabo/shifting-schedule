@@ -35,7 +35,7 @@ pipeline {
                 script {
                     //withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
                     sh 'kubectl apply -f deployment.yaml'
-                    }
+                    //}
                 }
             }
         }
