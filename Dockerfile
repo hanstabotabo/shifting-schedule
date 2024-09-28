@@ -11,7 +11,7 @@ COPY . .
 RUN chmod +x shift_sched.sh
 
 # Install bash (already present in CentOS) and any other necessary dependencies
-RUN yum update -y && yum install -y bash
+RUN yum update -y && yum clean all && yum install -y bash
 
 # Define the command to run your bash script
 ENTRYPOINT ["./shift_sched.sh"]
