@@ -5,7 +5,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    sh 'git clone https://github.com/hanstabotabo/shifting-schedule.git'
+                    if (fileExists('shifting-schedule')) {
+                        dir('shifting-schedule') {
+                            sh 'git fetch --all'
+                            sh 'git reset --hard origin/main'
+                        }
+                    } else {
+                        git 'https://github.com/hanstabotabo/shifting-schedule.git'
                 }
             }
         }
