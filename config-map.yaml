@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-script-configmap
+data:
+  shift_sched.sh: |
+    #!/bin/sh
+    echo "Starting the shift scheduling script..."
+    # Your script logic here
+    echo "Shift scheduling script completed."
