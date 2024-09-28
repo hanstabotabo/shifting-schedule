@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'docker-host'
-    }
+    agent any
  
     stages {
         stage('Checkout') {
