@@ -32,7 +32,7 @@ pipeline {
                 docker push localhost:5000/mini-proj:latest
                 '''
                 //sh 'docker pull docker.io/hanstabotabo/mini-proj'
-                }
+                //}
             }
         }
         stage('Deploy') {
