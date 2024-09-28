@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker login docker.io -u hanstabotabo -p 301315BebuGanda15!'
-                    sh 'docker pull docker.io/hanstabotabo/shift_sched'
+                    sh 'docker pull docker.io/hanstabotabo/mini-proj'
                 }
             }
         }
