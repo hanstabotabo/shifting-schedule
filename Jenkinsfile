@@ -36,6 +36,7 @@ pipeline {
         }
         stage('Push Updated Schedule to Git') {
             steps {
+                withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
                 withCredentials([usernamePassword(credentialsId: 'git_credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                 script {
                     sh '''
@@ -71,6 +72,7 @@ pipeline {
                     git commit -m "Update schedule.txt from Kubernetes job"
                     git push origin main
                     '''
+                }
                 }
                 }
             }
