@@ -2,6 +2,10 @@ pipeline {
     agent any
 
     stages {
+        stage('Clone Repository') {
+            steps {
+                sh 'git clone https://github.com/hanstabotabo/shifting-schedule.git'
+            }
         stage('Build') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -50,8 +54,6 @@ pipeline {
                     
                     # Now use RANDOM_POD in kubectl cp
                     kubectl cp "$RANDOM_POD:/app/schedule.txt" ./shifting-schedule/schedule.txt
-
-                    git clone https://github.com/hanstabotabo/shifting-schedule.git
 
                     cd shifting-schedule
 
