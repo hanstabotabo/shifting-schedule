@@ -17,16 +17,10 @@ spec:
       containers:
       - name: shift-sched-container
         image: localhost:5000/mini-proj:latest
-        command: ["/bin/sh"]
-        args: ["-c", "/app/shift_sched.sh"]
-        stdin: true
-        tty: true
         volumeMounts:
-          - name: mini-proj-configmap
-            mountPath: /app
-        ports:
-          - containerPort: 80
+        - name: mini-proj-storage
+          mountPath: /app
       volumes:
-        - name: mini-proj-configmap
-          configMap:
-            name: mini-proj-configmap
+      - name: mini-proj-storage
+        persistentVolumeClaim:
+          claimName: mini-proj-pvc
