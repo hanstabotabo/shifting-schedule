@@ -4,7 +4,10 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                sh 'git clone https://github.com/hanstabotabo/shifting-schedule.git'
+                sh '''
+                cd shifting-schedule || (git clone https://github.com/hanstabotabo/shifting-schedule.git && cd shifting-schedule)
+                git pull origin master
+                '''
             }
         }
         stage('Build') {
