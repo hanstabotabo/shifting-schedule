@@ -54,7 +54,7 @@ pipeline {
                     echo "Using pod: $RANDOM_POD"
                     
                     # Now use RANDOM_POD in kubectl cp
-                    kubectl cp "$RANDOM_POD:/app/schedule.txt" ./shifting-schedule/schedule.txt
+                    kubectl cp "$RANDOM_POD:/app/schedule.txt" /var/lib/jenkins/workspace/mini-proj/shifting-schedule/schedule.txt
 
                     cd shifting-schedule
 
