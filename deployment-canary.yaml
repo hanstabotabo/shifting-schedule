@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: mini-proj-app
+      version: canary
   template:
     metadata:
       labels:
         app: mini-proj-app
+        version: canary
     spec:
       initContainers:
       - name: init-chmod
