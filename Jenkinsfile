@@ -37,7 +37,6 @@ pipeline {
         stage('Push Updated Schedule to Git') {
             steps {
                 withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
-                withCredentials([usernamePassword(credentialsId: 'git_credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                 script {
                     sh '''
                     # Get a random pod name from the mini-proj-app deployment
@@ -50,7 +49,9 @@ pipeline {
                     echo "Using pod: $RANDOM_POD"
                     
                     # Now use RANDOM_POD in kubectl cp
-                    kubectl cp "$RANDOM_POD:/app/schedule.txt" ./schedule.txt
+                    kubectl cp "$RANDOM_POD:/app/schedule.txt" ./shifting-schedule/schedule.txt
+
+                    cd shifting-schedule
 
                     # Configure Git credentials
                     git config --global user.email "hanstabotabo@gmail.com"
@@ -69,7 +70,6 @@ pipeline {
                         echo "No changes to commit."
                     fi
                     '''
-                }
                 }
                 }
             }
