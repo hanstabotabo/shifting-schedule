@@ -5,13 +5,15 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
+                docker pull centos:latest
+                docker pull registry:latest
                 docker build . -t mini-proj:latest
                 if [ "$(docker ps -q -f name=registry)" ]; then
                     docker stop registry
                     docker rm registry
-                    docker run -d -p 5000:5000 --name registry registry:2
+                    docker run -d -p 5000:5000 --name registry registry:latest
                 else
-                    docker run -d -p 5000:5000 --name registry registry:2
+                    docker run -d -p 5000:5000 --name registry registry:latest
                 fi
                 docker tag mini-proj:latest localhost:5000/mini-proj:latest
                 docker push localhost:5000/mini-proj:latest
