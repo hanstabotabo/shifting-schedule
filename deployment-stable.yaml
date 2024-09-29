@@ -4,6 +4,7 @@ metadata:
   name: mini-proj-app-stable
   labels:
     app: mini-proj-app
+    version: stable
 spec:
   replicas: 3
   selector:
@@ -27,6 +28,9 @@ spec:
       - name: shift-sched-container
         image: localhost:5000/mini-proj:stable
         command: ["/bin/sh", "-c", "while true; do sleep 30; done;"]
+        env:
+        - name: VERSION
+          value: "stable"
         volumeMounts:
         - name: mini-proj-storage
           mountPath: /app
