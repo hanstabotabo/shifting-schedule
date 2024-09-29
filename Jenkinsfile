@@ -29,6 +29,7 @@ pipeline {
                     sh 'kubectl apply -f pv-definition.yaml'
                     sh 'kubectl apply -f pvc-definition.yaml'
                     sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f deployment-canary.yaml'
                     }
             }
         }
