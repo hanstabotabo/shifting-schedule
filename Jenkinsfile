@@ -7,6 +7,7 @@ pipeline {
                 git credentialsId: 'git-credentials', url: 'https://github.com/hanstabotabo/shifting-schedule.git', branch: 'master'
                 sh '''
                 cd shifting-schedule || (git clone https://github.com/hanstabotabo/shifting-schedule.git && cd shifting-schedule)
+                git config pull.rebase true
                 git pull origin master
                 '''
             }
