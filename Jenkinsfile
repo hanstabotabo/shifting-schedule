@@ -44,20 +44,22 @@ pipeline {
         }
         stage('Push Updated Schedule to Git') {
             steps {
-                withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
+                // withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
                 script {
                     sh '''
                     # Get a random pod name from the mini-proj-app deployment
-                    RANDOM_POD=$(kubectl get pods -o name | grep mini-proj-app | shuf -n 1 | cut -d'/' -f2)
-                    if [ -z "$RANDOM_POD" ]; then
-                        echo "No pods found for mini-proj-app."
-                        exit 1
-                    fi
+                    # RANDOM_POD=$(kubectl get pods -o name | grep mini-proj-app | shuf -n 1 | cut -d'/' -f2)
+                    # if [ -z "$RANDOM_POD" ]; then
+                    #     echo "No pods found for mini-proj-app."
+                    #     exit 1
+                    # fi
 
-                    echo "Using pod: $RANDOM_POD"
+                    # echo "Using pod: $RANDOM_POD"
                     
                     # Now use RANDOM_POD in kubectl cp
-                    kubectl cp "$RANDOM_POD:/app/schedule.txt" /var/lib/jenkins/workspace/mini-proj/shifting-schedule/schedule.txt
+                    # kubectl cp "$RANDOM_POD:/app/schedule.txt" /var/lib/jenkins/workspace/mini-proj/shifting-schedule/schedule.txt
+
+                    cp ./schedule.txt ./shifting-schedule/schedule.txt
 
                     cd shifting-schedule
 
@@ -79,7 +81,7 @@ pipeline {
                     fi
                     '''
                 }
-                }
+                //}
             }
         }
     }
