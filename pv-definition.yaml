@@ -9,4 +9,4 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/var/lib/jenkins/workspace/mini-proj/"
+    path: "/var/lib/jenkins/workspace/mini-proj/shifting-schedule"
