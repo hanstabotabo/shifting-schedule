@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git credentialsId: 'git-credentials', url: 'https://github.com/username/private-repo.git', branch: 'main'
+                git credentialsId: 'git-credentials', url: 'https://github.com/hanstabotabo/shifting-schedule.git', branch: 'master'
                 sh '''
                 cd shifting-schedule || (git clone https://github.com/hanstabotabo/shifting-schedule.git && cd shifting-schedule)
                 git pull origin master
@@ -46,7 +46,7 @@ pipeline {
         stage('Push Updated Schedule to Git') {
             steps {
                 // withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
-                git credentialsId: 'git-credentials', url: 'https://github.com/username/private-repo.git', branch: 'main'
+                git credentialsId: 'git-credentials', url: 'https://github.com/hanstabotabo/shifting-schedule.git', branch: 'master'
                 script {
                     sh '''
                     # Get a random pod name from the mini-proj-app deployment
@@ -82,7 +82,7 @@ pipeline {
                         echo "No changes to commit."
                     fi
 
-                    git push
+                    git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/hanstabotabo/shifting-schedule.git
                     '''
                 }
                 //}
