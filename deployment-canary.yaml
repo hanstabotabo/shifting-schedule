@@ -6,7 +6,7 @@ metadata:
     app: mini-proj-app
     version: canary
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mini-proj-app
