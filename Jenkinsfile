@@ -42,12 +42,8 @@ pipeline {
                     sh '''
                     # Get a random pod name from the mini-proj-app deployment
                     RANDOM_POD=$(kubectl get pods -o name | grep mini-proj-app | shuf -n 1 | cut -d'/' -f2)
-
-                    # Check if the RANDOM_POD variable is empty
                     if [ -z "$RANDOM_POD" ]; then
                         echo "No pods found for mini-proj-app."
-                        echo "Available pods:"
-                        kubectl get pods -o name  # Print all pods for debugging
                         exit 1
                     fi
 
@@ -67,10 +63,17 @@ pipeline {
                     # Copy the updated schedule file to the repo
                     cp ../schedule.txt .
 
+                    # Check contents of schedule.txt
+                    echo "Contents of schedule.txt:"
+                    cat ./schedule.txt
+
                     # Commit and push the updated file
                     git add schedule.txt
-                    git commit -m "Update schedule.txt from Kubernetes job"
-                    git push origin main
+                    if [ -n "$(git status --porcelain)" ]; then
+                        git commit -m "Update schedule.txt from Kubernetes job"
+                    else
+                        echo "No changes to commit."
+                    fi
                     '''
                 }
                 }
