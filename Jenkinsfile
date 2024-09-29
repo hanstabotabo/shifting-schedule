@@ -40,7 +40,14 @@ pipeline {
                 script {
                     sh '''
                     # Copy the updated schedule.txt from Kubernetes PV to Jenkins workspace
-                    kubectl cp $(kubectl get pods -o name | grep mini-proj-app | cut -d'/' -f2 | shuf -n 1):/app/schedule.txt ./schedule.txt
+                    RANDOM_POD=$(kubectl get pods -o name | grep mini-proj-app | shuf -n 1 | cut -d'/' -f2)
+                    # Check if the RANDOM_POD variable is empty
+                    if [ -z "$RANDOM_POD" ]; then
+                        echo "No pods found for mini-proj-app."
+                        exit 1
+                    fi
+                    # Now use RANDOM_POD in kubectl cp
+                    kubectl cp "$RANDOM_POD:/app/schedule.txt" ./schedule.txt
 
                     # Configure Git credentials
                     git config --global user.email "hanstabotabo@gmail.com"
