@@ -4,6 +4,7 @@ metadata:
   name: mini-proj-app-canary
   labels:
     app: mini-proj-app
+    version: canary
 spec:
   replicas: 3
   selector:
@@ -27,6 +28,9 @@ spec:
       - name: shift-sched-container
         image: localhost:5000/mini-proj:canary
         command: ["/bin/sh", "-c", "while true; do sleep 30; done;"]
+        env:
+        - name: VERSION
+          value: "canary"
         volumeMounts:
         - name: mini-proj-storage
           mountPath: /app
