@@ -25,7 +25,7 @@ spec:
           mountPath: /app
       containers:
       - name: shift-sched-container
-        image: localhost:5000/mini-proj:latest
+        image: localhost:5000/mini-proj:canary
         command: ["/bin/sh", "-c", "while true; do sleep 30; done;"]
         volumeMounts:
         - name: mini-proj-storage
