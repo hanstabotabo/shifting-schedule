@@ -8,7 +8,6 @@ pipeline {
                 script {
                     sh '''
                     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                    docker build . -t mini-proj:latest
                     if [ "$(docker ps -q -f name=registry)" ]; then
                         docker stop registry
                         docker rm registry
@@ -16,8 +15,12 @@ pipeline {
                     else
                         docker run -d -p 5000:5000 --name registry registry:latest
                     fi
-                    docker tag mini-proj:latest localhost:5000/mini-proj:latest
-                    docker push localhost:5000/mini-proj:latest
+                    docker build Dockerfile -t mini-proj:stable
+                    docker tag mini-proj:stable localhost:5000/mini-proj:stable
+                    docker push localhost:5000/mini-proj:stable
+                    docker build Dockerfile-canary -t mini-proj:canary
+                    docker tag mini-proj:canary localhost:5000/mini-proj:canary
+                    docker push localhost:5000/mini-proj:canary
                     '''
                 }
                 }
