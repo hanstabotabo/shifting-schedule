@@ -1,6 +1,6 @@
 #!/bin/bash
 
-list="schedule.txt"
+list="/app/schedule.txt"
 
 echo "Welcome to Shift Scheduler"
 
