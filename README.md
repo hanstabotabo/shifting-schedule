@@ -12,4 +12,4 @@
 1. pipeline name "mini-proj"
 
 # to access shift_sched
-1. kubectl exec -it $(kubectl get pods -o name | grep mini-proj-app | cut -d'/' -f2 | shuf -n 1) -- ./shift_sched.sh
+1. k exec -it $(kubectl get pods -o name | grep mini-proj-app | cut -d'/' -f2 | shuf -n 1) -c shift-sched-container  -- ./shift_sched.sh
