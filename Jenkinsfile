@@ -51,6 +51,8 @@ pipeline {
                     # Now use RANDOM_POD in kubectl cp
                     kubectl cp "$RANDOM_POD:/app/schedule.txt" ./shifting-schedule/schedule.txt
 
+                    git clone https://github.com/hanstabotabo/shifting-schedule.git
+
                     cd shifting-schedule
 
                     # Configure Git credentials
