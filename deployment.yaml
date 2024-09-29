@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: mini-proj-app
+      version: stable
   template:
     metadata:
       labels:
         app: mini-proj-app
+        version: stable
     spec:
       initContainers:
       - name: init-chmod
