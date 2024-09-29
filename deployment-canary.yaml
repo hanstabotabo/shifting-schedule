@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mini-proj-app
+  labels:
+    app: mini-proj-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mini-proj-app
+  template:
+    metadata:
+      labels:
+        app: mini-proj-app
+    spec:
+      initContainers:
+      - name: init-chmod
+        image: busybox
+        command: ["sh", "-c", "chmod +x /app/shift_sched.sh"]
+        volumeMounts:
+        - name: mini-proj-storage
+          mountPath: /app
+      containers:
+      - name: shift-sched-container
+        image: localhost:5000/mini-proj:latest
+        command: ["/bin/sh", "-c", "while true; do sleep 30; done;"]
+        volumeMounts:
+        - name: mini-proj-storage
+          mountPath: /app
+      volumes:
+      - name: mini-proj-storage
+        persistentVolumeClaim:
+          claimName: mini-proj-pvc
