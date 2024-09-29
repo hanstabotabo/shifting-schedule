@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh 'git clone https://github.com/hanstabotabo/shifting-schedule.git'
             }
+        }
         stage('Build') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
