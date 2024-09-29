@@ -1,12 +1,15 @@
 # shifting-schedule
 
-on jump host:
-sudo usermod -aG docker jenkins
-sudo systemctl restart jenkins
+# on jump host:
+1. sudo usermod -aG docker jenkins
+2. sudo systemctl restart jenkins
 
-on jenkins ui:
-Manage Jenkins > Credentials > add mo Docker Hub Credentials eto ilagay mo sa ID = "docker_credentials"
+# on jenkins ui:
+1. Manage Jenkins > Credentials > Add your Docker Hub Credentials
+   - ID = "docker_credentials"
 
-on pipeline:
+# on pipeline:
 1. pipeline name "mini-proj"
-2. change master to main
+
+# to access shift_sched
+1. kubectl exec -it $(kubectl get pods -o name | grep mini-proj-app | cut -d'/' -f2 | shuf -n 1) -- ./shift_sched.sh
