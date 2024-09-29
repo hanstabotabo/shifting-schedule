@@ -11,4 +11,4 @@ COPY shift_sched.sh /app/shift_sched.sh
 RUN chmod +x /app/shift_sched.sh
 
 # Define the command to run your bash script
-ENTRYPOINT ["./shift_sched.sh"]
+ENTRYPOINT ["/app/shift_sched.sh"]
