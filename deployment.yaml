@@ -17,7 +17,6 @@ spec:
       containers:
       - name: shift-sched-container
         image: localhost:5000/mini-proj:latest
-        command: ["/bin/bash"]
         volumeMounts:
         - name: mini-proj-storage
           mountPath: /app
