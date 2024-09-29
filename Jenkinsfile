@@ -34,5 +34,33 @@ pipeline {
                     }
             }
         }
+        stage('Push Updated Schedule to Git') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'git_credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                script {
+                    sh '''
+                    # Copy the updated schedule.txt from Kubernetes PV to Jenkins workspace
+                    kubectl cp $(kubectl get pods -o name | grep mini-proj-app | cut -d'/' -f2 | shuf -n 1):/app/schedule.txt ./schedule.txt
+
+                    # Configure Git credentials
+                    git config --global user.email "hanstabotabo@gmail.com"
+                    git config --global user.name "Hans Tabotabo"
+
+                    # Clone the repository
+                    git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/hanstabotabo/shifting-schedule.git
+                    cd shifting-schedule
+
+                    # Copy the updated schedule file to the repo
+                    cp ../schedule.txt .
+
+                    # Commit and push the updated file
+                    git add schedule.txt
+                    git commit -m "Update schedule.txt from Kubernetes job"
+                    git push origin main
+                    '''
+                }
+                }
+            }
+        }
     }
 }
