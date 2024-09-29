@@ -17,10 +17,10 @@ spec:
       containers:
       - name: shift-sched-container
         image: localhost:5000/mini-proj:latest
-        volumeMounts:
-        - name: mini-proj-storage
-          mountPath: /app
-      volumes:
-      - name: mini-proj-storage
-        persistentVolumeClaim:
-          claimName: mini-proj-pvc
+#        volumeMounts:
+#        - name: mini-proj-storage
+#          mountPath: /app
+#      volumes:
+#      - name: mini-proj-storage
+#        persistentVolumeClaim:
+#          claimName: mini-proj-pvc
