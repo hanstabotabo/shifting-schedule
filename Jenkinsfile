@@ -55,13 +55,7 @@ pipeline {
                     # Configure Git credentials
                     git config --global user.email "hanstabotabo@gmail.com"
                     git config --global user.name "Hans Tabotabo"
-
-                    # Clone the repository
-                    git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/hanstabotabo/shifting-schedule.git
-                    cd shifting-schedule
-
-                    # Copy the updated schedule file to the repo
-                    cp ../schedule.txt .
+                    git config --global --add safe.directory /var/lib/jenkins/workspace/mini-proj
 
                     # Check contents of schedule.txt
                     echo "Contents of schedule.txt:"
