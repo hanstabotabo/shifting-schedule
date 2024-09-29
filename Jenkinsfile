@@ -15,11 +15,9 @@ pipeline {
                     else
                         docker run -d -p 5000:5000 --name registry registry:latest
                     fi
-                    docker build Dockerfile -t mini-proj:stable
-                    docker tag mini-proj:stable localhost:5000/mini-proj:stable
+                    docker build . -t localhost:5000/mini-proj:stable --build-arg VERSION=stable
                     docker push localhost:5000/mini-proj:stable
-                    docker build Dockerfile-canary -t mini-proj:canary
-                    docker tag mini-proj:canary localhost:5000/mini-proj:canary
+                    docker build . -t localhost:5000/mini-proj:canary --build-arg VERSION=canary
                     docker push localhost:5000/mini-proj:canary
                     '''
                 }
@@ -31,7 +29,7 @@ pipeline {
                     withKubeConfig(caCertificate: "${KUBE_CERT}", clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', credentialsId: 'my-kube-config-credentials', namespace: 'default', restrictKubeConfigAccess: false, serverUrl: 'https://jump-host:6443') {
                     sh 'kubectl apply -f pv-definition.yaml'
                     sh 'kubectl apply -f pvc-definition.yaml'
-                    sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f deployment-stable.yaml'
                     sh 'kubectl apply -f deployment-canary.yaml'
                     }
             }
